@@ -1,0 +1,2666 @@
+{
+	"info": {
+		"_postman_id": "b390fd8b-d68c-42fe-a69e-d31c80e4c09c",
+		"name": "Netflix",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31357561",
+		"_collection_link": "https://galactic-space-226728.postman.co/workspace/Data-Processing~74321e8f-cee3-43cc-bf33-1d24222205e4/collection/27393897-b390fd8b-d68c-42fe-a69e-d31c80e4c09c?action=share&source=collection_link&creator=31357561"
+	},
+	"item": [
+		{
+			"name": "User - Zsombor",
+			"item": [
+				{
+					"name": "Register",
+					"item": [
+						{
+							"name": "Register JSON",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/xml",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email1}}\",\r\n    \"password\": \"{{password1}}\",\r\n    \"firstName\":\"john\",\r\n    \"lastName\":\"doe\",\r\n    \"street\":\"main\",\r\n    \"zipCode\":\"12345\",\r\n    \"countryId\":\"1\",\r\n    \"paymentMethod\":\"Visa\",\r\n    \"subscriptionId\":\"3\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"register"
+									]
+								},
+								"description": "This API endpoint allows you to register a new user account. It is an HTTP POST request that should be sent to the URL `https://127.0.0.1:3000/register`.\n\n### Request Parameters\n\nThe request does not require any specific parameters. However, you may need to include the necessary user information such as email, and password in the request body.\n\n### Response\n\nIf the registration is successful, the API will respond with a JSON object containing a message indicating that the user account has been created. The message will also instruct the user to verify their account through the email that has been sent to them.\n\nHere is an example response:\n\n``` json\n{\n    \"message\": \"User account succesfully created, please verify your account through the email we sent\"\n}\n\n ```\n\nPlease note that the response may vary depending on the specific implementation of the API."
+							},
+							"response": [
+								{
+									"name": "Succesful Register",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"john.doe@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://127.0.0.1:3000/register",
+											"protocol": "https",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"register"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"name": "Content-Type",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\r\n    \"message\": \"User account succesfully created, please verify your account through the email we sent\"\r\n}"
+								},
+								{
+									"name": "FAIL User already exists",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"email\",\r\n    \"password\": \"password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://127.0.0.1:3000/register",
+											"protocol": "https",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"name": "Content-Type",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\r\n    \"error\": \"This email adress already have an account\"\r\n}"
+								},
+								{
+									"name": "FAIL Invalid Email",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombikaa\",\r\n    \"password\": \"password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/register",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "84"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"54-nl61sqFVIUwVsOxkEWmdPvQyGAY\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:22:06 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Invalid email address. Please make sure that the input values are valid.\"\n}"
+								},
+								{
+									"name": "FAIL Invalid Password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombikaa.hajzer@gmail.com\",\r\n    \"password\": \"passwodsadasrd\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:3000/register",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "78"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4e-hJ4GGdQ5gPyN/gK+ZxDvCG1vgGI\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:22:44 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Invalid password. Please make sure that the input values are valid\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Register XML",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email2}}\",\r\n    \"password\": \"{{password2}}\",\r\n    \"firstName\":\"john\",\r\n    \"lastName\":\"doe\",\r\n    \"street\":\"main\",\r\n    \"zipCode\":\"12345\",\r\n    \"countryId\":\"1\",\r\n    \"paymentMethod\":\"Visa\",\r\n    \"subscriptionId\":\"0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email Verification",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{port}}/register/verification/{token}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"register",
+										"verification",
+										"{token}"
+									]
+								},
+								"description": "This API endpoint is used to verify a user account by providing a verification token in the request URL. The verification token is a JSON Web Token (JWT) that is generated when a user signs up.\n\nTo verify an account, an email will be set to the user with the following link which they can click on:\n\n```\nhttps://127.0.0.1:3000/verification/?verification_token={JWT-Token}\n\n ```\n\nReplace `{JWT-Token}` with the actual verification token received by the user.\n\n### Response\n\nThe response for this request will include a message indicating whether the account was verified successfully or not. An example of a successful response is:\n\n``` json\n{\n    \"message\" : \"Account verified successfully!\"\n}\n\n ```\n\nPlease note that the response may vary depending on the implementation of the API."
+							},
+							"response": [
+								{
+									"name": "Successful Email Verification",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://127.0.0.1:3000/verification/?verification_token={JWT-token}",
+											"protocol": "https",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"verification",
+												""
+											],
+											"query": [
+												{
+													"key": "verification_token",
+													"value": "{JWT-token}",
+													"description": "Unique token with 30 min expiery and stored in data base."
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"name": "Content-Type",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\r\n    \"message\" : \"Account verified succesfully!\"\r\n}"
+								},
+								{
+									"name": "Invalid Email Verification",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://127.0.0.1:3000/verification/?verification_token={JWT-token}",
+											"protocol": "https",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"verification",
+												""
+											],
+											"query": [
+												{
+													"key": "verification_token",
+													"value": "{JWT-token}",
+													"description": "Unique token with 30 min expiery and stored in data base."
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"name": "Content-Type",
+											"description": "",
+											"type": "text"
+										}
+									],
+									"cookie": [],
+									"body": "{\r\n    \"error\" : \"Invalid or Expired Token\"\r\n}"
+								},
+								{
+									"name": "FAIL JWT malformed",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:3000/register/verification/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoienNvbWJpa2EuaGFqemVyQGdtYWlsLmNvbSIsInB1cnBvc2UiOiJhNvdW50LXZlcmlmaWNhdGlvbiJ9LCJpYXQiOjE3MDI0OTkwNDIsImV4cCI6MTcwMjUwMDg0Mn0.BtW5Iy6qSiC00G79Cy4b1EudEdmixUmRN51VlR0kPYc",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "3000",
+											"path": [
+												"register",
+												"verification",
+												"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoienNvbWJpa2EuaGFqemVyQGdtYWlsLmNvbSIsInB1cnBvc2UiOiJhNvdW50LXZlcmlmaWNhdGlvbiJ9LCJpYXQiOjE3MDI0OTkwNDIsImV4cCI6MTcwMjUwMDg0Mn0.BtW5Iy6qSiC00G79Cy4b1EudEdmixUmRN51VlR0kPYc"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "25"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"19-bZ2hKdsxLZWJdlsAoRfM/f0fROE\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:26:22 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"JWT malformed\"\n}"
+								}
+							]
+						}
+					],
+					"description": "Request to register and their input and possible outputs"
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "Login JSON",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/xml",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email1}}\",\r\n    \"password\": \"{{password1}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:{{port}}}/login",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "{{port}}}",
+									"path": [
+										"login"
+									]
+								},
+								"description": "This API endpoint is used to authenticate a user and obtain a JWT token for subsequent requests.\n\nTo authenticate, send a POST request to `https://127.0.0.1:3000/login`.\n\nThe request should include the necessary credentials in the body of the request.\n\nUpon successful authentication, the server will respond with a JSON object containing the JWT token.\n\nExample Response:\n\n``` json\n{\n    \"token\": \"JWT token\"\n}\n\n ```\n\nPlease note that the actual response may contain additional properties not mentioned here.\n\nMake sure to include the obtained JWT token in the headers of subsequent requests that require authentication."
+							},
+							"response": [
+								{
+									"name": "Login Successful",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombika.hajzer@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "267"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"10b-CjXSkipDG3OoIW1iMsLtk/1Yims\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:10:19 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Successfull login!\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoienNvbWJpa2EuaGFqemVyQGdtYWlsLmNvbSIsInB1cnBvc2UiOiJhdXRoZW50aWNhdGlvbiJ9LCJpYXQiOjE3MDI0OTgyMTksImV4cCI6MTcwMjU4NDYxOX0.gPz6228cTLS9aNgmp2Q94J7cLgwhLyct7SX8V2ttpT0\"\n}"
+								},
+								{
+									"name": "FAIL Email is not registered",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombikaa.hajzer@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "71"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"47-O8qMm8gizeMzQ+tmwDVuSXRu8DA\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:11:00 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"There is no user account associated with this email address\"\n}"
+								},
+								{
+									"name": "FAIL Invalid Email",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"z\",\r\n    \"password\": \"password\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "84"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"54-nl61sqFVIUwVsOxkEWmdPvQyGAY\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:11:54 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Invalid email address. Please make sure that the input values are valid.\"\n}"
+								},
+								{
+									"name": "FAIL Invalid Password",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombika.hajzer@gmail.com\",\r\n    \"password\": \"passworasd\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "79"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4f-5cgKzwkUw5wH4g9WrRHLt0GMIp0\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:13:35 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Invalid password. Please make sure that the input values are valid.\"\n}"
+								},
+								{
+									"name": "FAIL Invalid User Credentials",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombika.hajzer@gmail.com\",\r\n    \"password\": \"Zsombika02$\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "36"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"24-UvVAuMgywtCZs/fJJS9imjABBZY\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:14:36 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Invalid user credentials\"\n}"
+								},
+								{
+									"name": "FAIL Too Many Login Attempt Notifier",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombika.hajzer@gmail.com\",\r\n    \"password\": \"Zsombika02$\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "58"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3a-dAg42Jt3W0T6knCsp0W7YsqNzXs\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:15:21 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Too many login attempts, please reset password\"\n}"
+								},
+								{
+									"name": "FAIL Blocked Account",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombika.hajzer@gmail.com\",\r\n    \"password\": \"Zsombika02$\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "68"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"44-YlTchnQ1SbA5iEOchkO7XLoj+BE\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:16:21 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"User account is currently blocked, please reset password\"\n}"
+								},
+								{
+									"name": "FAIL Not verified account",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombikaa.hajzer@gmail.com\",\r\n    \"password\": \"Zsombika02$\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "50"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"32-Bbo8jsXTCakMmrRGMsArIUfY4rA\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:17:25 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"User account has not been verified yet\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Login XML",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email1}}\",\r\n    \"password\": \"{{password1}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:{{port}}/login",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "{{port}}",
+									"path": [
+										"login"
+									]
+								},
+								"description": "This API endpoint is used to authenticate a user and obtain a JWT token for subsequent requests.\n\nTo authenticate, send a POST request to `https://127.0.0.1:3000/login`.\n\nThe request should include the necessary credentials in the body of the request.\n\nUpon successful authentication, the server will respond with a JSON object containing the JWT token.\n\nExample Response:\n\n``` json\n{\n    \"token\": \"JWT token\"\n}\n\n ```\n\nPlease note that the actual response may contain additional properties not mentioned here.\n\nMake sure to include the obtained JWT token in the headers of subsequent requests that require authentication."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Password reset",
+					"item": [
+						{
+							"name": "Forgot Password JSON",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email1}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:{{port}}/login/password-reset",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "{{port}}",
+									"path": [
+										"login",
+										"password-reset"
+									]
+								},
+								"description": "This endpoint is used to send a reset password email to the user. It is an HTTP POST request that should be sent to [https://127.0.0.1:3000/reset-password](https://127.0.0.1:3000/reset-password).\n\n### Request Parameters\n\nThis request does not require any request parameters but it requires the request body to contain an email\n\n### Response\n\nUpon successful execution of the request, the server will respond with a JSON object containing a message indicating that the link to reset the email has been sent. Here is an example response:\n\n``` json\n{\n    \"message\" : \"Link to reset email has been sent\"\n}\n\n ```\n\nPlease note that the actual content of the reset email will not be included in the response."
+							},
+							"response": [
+								{
+									"name": "Successful Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombika.hajzer@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login/password-reset",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login",
+												"password-reset"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "61"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3d-XGl/LckvuP+ME3g2xzTjTBghpwY\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:36:15 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Password Resest link has been sent successfully\"\n}"
+								},
+								{
+									"name": "FAIL Invalid Email",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombika.hajzeril.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login/password-reset",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login",
+												"password-reset"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "78"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4e-gEXHhOyWRZml2SPWm1Gc1O3Rzzs\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 21:00:58 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Invalid email address. Please make sure that the inpues are valid.\"\n}"
+								},
+								{
+									"name": "Fail User Not Registered",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"emailthatdoesnothaveauseraccount@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login/password-reset",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login",
+												"password-reset"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "34"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"22-2/OpakpP8UDkPxMrK71fHbccNOk\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 21:01:44 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"User is not registered\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Forgot Password XML",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email1}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:{{port}}/login/password-reset",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "{{port}}",
+									"path": [
+										"login",
+										"password-reset"
+									]
+								},
+								"description": "This endpoint is used to send a reset password email to the user. It is an HTTP POST request that should be sent to [https://127.0.0.1:3000/reset-password](https://127.0.0.1:3000/reset-password).\n\n### Request Parameters\n\nThis request does not require any request parameters but it requires the request body to contain an email\n\n### Response\n\nUpon successful execution of the request, the server will respond with a JSON object containing a message indicating that the link to reset the email has been sent. Here is an example response:\n\n``` json\n{\n    \"message\" : \"Link to reset email has been sent\"\n}\n\n ```\n\nPlease note that the actual content of the reset email will not be included in the response."
+							},
+							"response": [
+								{
+									"name": "Successfull Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"zsombika.hajzer@gmail.com\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login/password-reset",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login",
+												"password-reset"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "html",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/xml"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/html; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "125"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"7d-B4m2FUgdme+LULWx9qXXsv54lO8\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 13 Dec 2023 20:35:28 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<response>\n    <message>Password Resest link has been sent successfully</message>\n</response>"
+								}
+							]
+						},
+						{
+							"name": "New Password Submit",
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"zsombika.hajzer@gmail.com\",  \"purpose\": \"password-reset\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "queryParam",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"{{password1}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/login/password-reset/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoienNvbWJvcjEuaGFqemVyQGdtYWlsLmNvbSIsInB1cnBvc2UiOiJwYXNzd29yZC1yZXNldCJ9LCJpYXQiOjE3MDUyNTI0NzUsImV4cCI6MTcwNTI1NDI3NX0.K6cINJ-v7yNZrov0l8a8_Z1G11EsO4sLB0M2dPHYVow",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"login",
+										"password-reset",
+										"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoienNvbWJvcjEuaGFqemVyQGdtYWlsLmNvbSIsInB1cnBvc2UiOiJwYXNzd29yZC1yZXNldCJ9LCJpYXQiOjE3MDUyNTI0NzUsImV4cCI6MTcwNTI1NDI3NX0.K6cINJ-v7yNZrov0l8a8_Z1G11EsO4sLB0M2dPHYVow"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "New Password Submit",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\": \"Zsombika02$\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3000/login/password-reset/:token",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3000",
+											"path": [
+												"login",
+												"password-reset",
+												":token"
+											],
+											"variable": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoienNvbWJpa2EuaGFqemVyQGdtYWlsLmNvbSIsInB1cnBvc2UiOiJwYXNzd29yZC1yZXNldCJ9LCJpYXQiOjE3MDI1NjUxNDQsImV4cCI6MTcwMjU2Njk0NH0.qViInmyPICK9fey95evudkeiJHbIpdRaU77A_1623EI"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Accept",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "24"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"18-+vAdnAAppULIqtc5YeVarqQ+qII\""
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 14 Dec 2023 15:32:36 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Expired Link\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "Profile Creation",
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "profileName",
+											"value": "John",
+											"type": "text"
+										},
+										{
+											"key": "profilePicture",
+											"type": "file",
+											"src": "/C:/Users/zsomb/Downloads/Screenshot 2024-01-14 141846.png"
+										},
+										{
+											"key": "age",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/user/current/profiles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"current",
+										"profiles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Profile",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:{{port}}/user/current/profiles/10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"current",
+										"profiles",
+										"10"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invite sending",
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"zsombika.hajzer@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/user/current/sendInvite",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"current",
+										"sendInvite"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Profile Set Preferences",
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"min_age\": 23,\r\n    \"movies\": [\"1\" , \"2\", \"3\"],\r\n    \"series\": [\"yeet\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/user/current/profiles/10/preferences",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"current",
+										"profiles",
+										"10",
+										"preferences"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Billing Date",
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}user/current/newBillingDate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}user",
+									"path": [
+										"current",
+										"newBillingDate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Payment Method",
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"subscription_id\" : \"1\",\r\n\"payment_method\": \"PayPal\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/user/current/subscription",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"current",
+										"subscription"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Content",
+					"item": [
+						{
+							"name": "Post Watch Movie Start",
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/content/movie/:movieId/profile/:profileId/start",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"content",
+										"movie",
+										":movieId",
+										"profile",
+										":profileId",
+										"start"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "2"
+										},
+										{
+											"key": "profileId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post Watch Movie End",
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"endTime\":\"03:30:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/content/movie/:movieId/profile/:profileId/end",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"content",
+										"movie",
+										":movieId",
+										"profile",
+										":profileId",
+										"end"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "2"
+										},
+										{
+											"key": "profileId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Watch Movie",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/content/movie/:movieId",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"content",
+										"movie",
+										":movieId"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Watch Movie Subtitle",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "jwt",
+									"jwt": [
+										{
+											"key": "payload",
+											"value": "{\r\n    \"data\": { \r\n   \"email\" : \"{{email1}}\",  \"purpose\": \"authentication\" \r\n} \r\n}",
+											"type": "string"
+										},
+										{
+											"key": "isSecretBase64Encoded",
+											"value": false,
+											"type": "boolean"
+										},
+										{
+											"key": "secret",
+											"value": "secret",
+											"type": "string"
+										},
+										{
+											"key": "algorithm",
+											"value": "HS256",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										},
+										{
+											"key": "headerPrefix",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "queryParamKey",
+											"value": "token",
+											"type": "string"
+										},
+										{
+											"key": "header",
+											"value": "{}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{port}}/content/movie/:movieId",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{port}}",
+									"path": [
+										"content",
+										"movie",
+										":movieId"
+									],
+									"variable": [
+										{
+											"key": "movieId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

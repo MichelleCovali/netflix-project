@@ -1,0 +1,802 @@
+openapi: 3.0.0
+info:
+  title: Netflix
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+  - url: http://127.0.0.1:3000
+  - url: http://localhost3000
+components:
+  securitySchemes:
+    noauthAuth:
+      type: http
+      scheme: noauth
+    jwtAuth:
+      type: http
+      scheme: jwt
+tags:
+  - name: User - Netflix
+  - name: User - Netflix > Register
+    description: Request to register and their input and possible outputs
+  - name: User - Netflix > Login
+  - name: User - Netflix > Password reset
+  - name: User - Netflix > Profile
+  - name: User - Netflix > Content
+  - name: Admin
+paths:
+  /register:
+    post:
+      tags:
+        - User - Netflix > Register
+      summary: Register XML
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: '{{email2}}'
+                password: '{{password2}}'
+                firstName: john
+                lastName: doe
+                street: main
+                zipCode: '12345'
+                countryId: '1'
+                paymentMethod: Visa
+                subscriptionId: '0'
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/xml
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /register/verification/{token}:
+    get:
+      tags:
+        - User - Netflix > Register
+      summary: Email Verification
+      description: >-
+        This API endpoint is used to verify a user account by providing a
+        verification token in the request URL. The verification token is a JSON
+        Web Token (JWT) that is generated when a user signs up.
+
+
+        To verify an account, an email will be set to the user with the
+        following link which they can click on:
+
+
+        ```
+
+        https://127.0.0.1:3000/verification/?verification_token={JWT-Token}
+
+         ```
+
+        Replace `{JWT-Token}` with the actual verification token received by the
+        user.
+
+
+        ### Response
+
+
+        The response for this request will include a message indicating whether
+        the account was verified successfully or not. An example of a successful
+        response is:
+
+
+        ``` json
+
+        {
+            "message" : "Account verified successfully!"
+        }
+
+         ```
+
+        Please note that the response may vary depending on the implementation
+        of the API.
+      parameters:
+        - name: token
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Account verified succesfully!
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Invalid Email Verification
+                  value:
+                    error: Invalid or Expired Token
+                example-1:
+                  summary: FAIL JWT malformed
+                  value:
+                    error: JWT malformed
+  /login:
+    post:
+      tags:
+        - User - Netflix > Login
+      summary: Login XML
+      description: >-
+        This API endpoint is used to authenticate a user and obtain a JWT token
+        for subsequent requests.
+
+
+        To authenticate, send a POST request to `https://127.0.0.1:3000/login`.
+
+
+        The request should include the necessary credentials in the body of the
+        request.
+
+
+        Upon successful authentication, the server will respond with a JSON
+        object containing the JWT token.
+
+
+        Example Response:
+
+
+        ``` json
+
+        {
+            "token": "JWT token"
+        }
+
+         ```
+
+        Please note that the actual response may contain additional properties
+        not mentioned here.
+
+
+        Make sure to include the obtained JWT token in the headers of subsequent
+        requests that require authentication.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: '{{email1}}'
+                password: '{{password1}}'
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/xml
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /login/password-reset:
+    post:
+      tags:
+        - User - Netflix > Password reset
+      summary: Forgot Password XML
+      description: >-
+        This endpoint is used to send a reset password email to the user. It is
+        an HTTP POST request that should be sent to
+        [https://127.0.0.1:3000/reset-password](https://127.0.0.1:3000/reset-password).
+
+
+        ### Request Parameters
+
+
+        This request does not require any request parameters but it requires the
+        request body to contain an email
+
+
+        ### Response
+
+
+        Upon successful execution of the request, the server will respond with a
+        JSON object containing a message indicating that the link to reset the
+        email has been sent. Here is an example response:
+
+
+        ``` json
+
+        {
+            "message" : "Link to reset email has been sent"
+        }
+
+         ```
+
+        Please note that the actual content of the reset email will not be
+        included in the response.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: '{{email1}}'
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/xml
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Accept:
+              schema:
+                type: string
+                example: application/xml
+            Content-Type:
+              schema:
+                type: string
+                example: text/html; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '125'
+            ETag:
+              schema:
+                type: string
+                example: W/"7d-B4m2FUgdme+LULWx9qXXsv54lO8"
+            Date:
+              schema:
+                type: string
+                example: Wed, 13 Dec 2023 20:35:28 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: |-
+                <?xml version="1.0" encoding="UTF-8"?>
+                <response>
+                    <message>Password Resest link has been sent successfully</message>
+                </response>
+  /login/password-reset/{token}:
+    patch:
+      tags:
+        - User - Netflix > Password reset
+      summary: New Password Submit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                password: '{{password1}}'
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: token
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '401':
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: '*'
+            Accept:
+              schema:
+                type: string
+                example: application/json
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '24'
+            ETag:
+              schema:
+                type: string
+                example: W/"18-+vAdnAAppULIqtc5YeVarqQ+qII"
+            Date:
+              schema:
+                type: string
+                example: Thu, 14 Dec 2023 15:32:36 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: Expired Link
+  /user/current/profiles:
+    post:
+      tags:
+        - User - Netflix > Profile
+      summary: Profile Creation
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                profileName:
+                  type: string
+                  example: john
+                profilePicture:
+                  type: string
+                  format: binary
+                age:
+                  type: integer
+                  example: '2'
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: Accept-Language
+          in: header
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/current/profiles/{profileId}:
+    get:
+      tags:
+        - User - Netflix > Profile
+      summary: Get Profile
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: profileId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - User - Netflix > Profile
+      summary: Profile Update
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                profileName:
+                  type: string
+                  example: john
+                profilePicture:
+                  type: string
+                  format: binary
+                age:
+                  type: integer
+                  example: '2'
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: Accept-Language
+          in: header
+          schema:
+            type: string
+        - name: profileId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - User - Netflix > Profile
+      summary: Delete Profile
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/xml
+        - name: profileId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/current/profiles/{profileId}/preferences:
+    patch:
+      tags:
+        - User - Netflix > Profile
+      summary: Profile Set Preferences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                min_age: 23
+                movies:
+                  - hey joe
+                  - '2'
+                  - '3'
+                  - a
+                series:
+                  - ayaya
+                viewing_class:
+                  - violence
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: profileId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/current/:
+    delete:
+      tags:
+        - User - Netflix > Profile
+      summary: Delete Account
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/xml
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/current/sendInvite:
+    post:
+      tags:
+        - User - Netflix > Profile
+      summary: Invite sending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: zsombika.hajzer@gmail.com
+      security:
+        - jwtAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/current/newBillingDate:
+    patch:
+      tags:
+        - User - Netflix > Profile
+      summary: New Billing Date
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: ''
+      security:
+        - jwtAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /user/current/subscription:
+    patch:
+      tags:
+        - User - Netflix > Profile
+      summary: Update Payment Method
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                subscription_id: '1'
+                payment_method: xPayPal
+      security:
+        - jwtAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /content/profile/{profileId}/watch-hisotry/movie/start:
+    post:
+      tags:
+        - User - Netflix > Content
+      summary: Post Watch Movie Start
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                movieId: '1'
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: profileId
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '31'
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json: {}
+  /content/profile/{profileId}/watch-history/movie/end:
+    post:
+      tags:
+        - User - Netflix > Content
+      summary: Post Watch Movie End
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                movieId: '1'
+                endTime: '02:30:00'
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: profileId
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '31'
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json: {}
+  /content/movie/{movieId}:
+    get:
+      tags:
+        - User - Netflix > Content
+      summary: Watch Movie
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: movieId
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /content/movie/{movieId}/subtitle:
+    get:
+      tags:
+        - User - Netflix > Content
+      summary: Watch Movie Subtitle
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: language
+          in: query
+          schema:
+            type: string
+          example: Chinese
+        - name: movieId
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '2'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /content/profile/{profileId}/watch-history/series/start:
+    post:
+      tags:
+        - User - Netflix > Content
+      summary: Post Watch Series Start
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                seriesId: '1'
+                seasonId: '1'
+                episodeId: '1'
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: profileId
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /content/profile/{profileId}/watch-history/series/end:
+    post:
+      tags:
+        - User - Netflix > Content
+      summary: Post Watch Series End
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                movieId: '2'
+                endTime: '03:30:00'
+      security:
+        - jwtAuth: []
+      parameters:
+        - name: profileId
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /admin/login:
+    post:
+      tags:
+        - Admin
+      summary: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: medior@example.com
+                password: password
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /admin/profile/2:
+    get:
+      tags:
+        - Admin
+      summary: Get Profile
+      security:
+        - jwtAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /admin/juniorView:
+    get:
+      tags:
+        - Admin
+      summary: Get Junior View
+      security:
+        - jwtAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /admin/mediorView:
+    get:
+      tags:
+        - Admin
+      summary: Get Medior View
+      security:
+        - jwtAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /admin/seniorView:
+    get:
+      tags:
+        - Admin
+      summary: Get Senior View
+      security:
+        - jwtAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+
+
