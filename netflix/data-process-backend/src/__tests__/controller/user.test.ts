@@ -50,8 +50,8 @@ describe('Rountes: /user ', () => {
                 const response = await supertest(app)
                     .delete(`/user/current/profiles/NotANumber`)
                     .set(authHeader)
-                expect(response.status).toBe(401)
-                expect(response.body.error).toBe('Malformed or Invalid JWT token')
+                expect(response.status).toBe(400)
+                expect(response.body.error).toBe('Profile ID must be a number')
             });
 
             test('Invalid Input values, negative number, expect 400 and error message', async () => {

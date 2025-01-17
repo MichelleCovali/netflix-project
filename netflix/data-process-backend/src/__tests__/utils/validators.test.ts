@@ -1,6 +1,7 @@
 import e from "express";
 import { isValidEmail, isValidPassword, validateStrings, validateNumbers, validateArrayStrings, isValidTimeInterval, languageValidator, stringDoesNotContainSpecialCharacters } from "../../utils/validators";
 import exp from "constants";
+import supertest from 'supertest';
 
 describe('isValidEmail', () => {
     test('Invalid email pattern returns false', () => {
