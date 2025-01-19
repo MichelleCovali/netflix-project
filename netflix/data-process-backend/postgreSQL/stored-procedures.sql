@@ -37,11 +37,6 @@ RETURNS void AS $$
             (movie_title, movie_duration, genre_id)
         RETURNING movie_id INTO movie_id;
 
-        -- Available_show_country table
-        INSERT INTO available_shows_country (country_id, movie_id)
-        VALUES
-            (country_id,movie_id);
-
         -- Subtitle table
         INSERT INTO subtitle (subtitle_location)
         VALUES
@@ -223,23 +218,6 @@ RETURNS TABLE
             GROUP BY m.title, g.title, m.duration
             LIMIT 5;
     END
-$$ LANGUAGE plpgsql;
-
---- Select on country_statistics for top 10 revenue countries
-CREATE OR REPLACE FUNCTION top_revenue_countries()
-RETURNS TABLE
-    (
-        country_name VARCHAR,
-        subscription_revenue DECIMAL
-    ) AS $$
-    BEGIN
-        -- Fetch top 10 revenue countries
-        RETURN QUERY
-        SELECT cs.country_name, cs.total_subscription_revenue
-        FROM country_statistics cs
-        ORDER BY cs.total_subscription_revenue DESC
-        LIMIT 10;
-    END;
 $$ LANGUAGE plpgsql;
 
 -- Insert the user information into DB
